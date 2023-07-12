@@ -1,1 +1,20 @@
+// devine van de gebruikte pin
+const int ventilatorPin = 9;
 
+// Tijdsdingen
+const unsigned long cyclusTijd = 5 * 60 * 1000; // is milli seconden
+const unsigned long hogereSnelheidTijd = 45 * 1000; // 45s in milli secondes
+
+void setup() {
+  pinMode(ventilatorPin, OUTPUT);
+}
+
+void loop() {
+  // Gemiddelde (5 minuten)
+  digitalWrite(ventilatorPin, HIGH);
+  delay(cyclusTijd);
+
+  // high 45s
+  digitalWrite(ventilatorPin, LOW);
+  delay(hogereSnelheidTijd);
+}
