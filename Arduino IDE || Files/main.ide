@@ -1,20 +1,37 @@
-// devine van de gebruikte pin
-const int ventilatorPin = 9;
+// pins
+const int motorPin1 = 9;  // Rode draad van de motor aangesloten op pin 9
+const int motorPin2 = 10; // Zwarte draad van de motor aangesloten op pin 10
 
-// Tijdsdingen
-const unsigned long cyclusTijd = 5 * 60 * 1000; // is milli seconden
-const unsigned long hogereSnelheidTijd = 45 * 1000; // 45s in milli secondes
+// tijden
+const int normaleSnelheidTijd = 50000;   // 5 minuten
+const int hogeSnelheidTijd = 50000;          // 45 seconden
 
 void setup() {
-  pinMode(ventilatorPin, OUTPUT);
+  // config voor de motorpins
+  pinMode(motorPin1, OUTPUT);
+  pinMode(motorPin2, OUTPUT);
 }
 
 void loop() {
-  // Gemiddelde (5 minuten)
-  digitalWrite(ventilatorPin, HIGH);
-  delay(cyclusTijd);
+  // draaien op reguliere snelheid
+  draaiMotor(normaleSnelheidTijd);
 
-  // high 45s
-  digitalWrite(ventilatorPin, LOW);
-  delay(hogereSnelheidTijd);
+  // wait
+  delay(2000);
+
+  // hoge snelheid
+  draaiMotor(hogeSnelheidTijd);
+}
+
+void draaiMotor(int tijd) {
+  // in 1 richting draaien
+  digitalWrite(motorPin1, HIGH);
+  digitalWrite(motorPin2, LOW);
+
+  // wait
+  delay(tijd);
+
+  // stop motor
+  digitalWrite(motorPin1, LOW);
+  digitalWrite(motorPin2, LOW);
 }
